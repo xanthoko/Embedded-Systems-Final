@@ -10,23 +10,7 @@
 #define COVID_TEST_INTERVAL 14400
 
 
-struct timeval tic(){
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv;
-}
-
-double toc(struct timeval begin){
-    struct timeval end;
-    gettimeofday(&end, NULL);
-    double stime = ((double)(end.tv_sec - begin.tv_sec) * 1000) +
-                   ((double)(end.tv_usec - begin.tv_usec) / 1000);
-    stime = stime / 1000;
-    return (stime);
-}
-
 contact_details contacts[SIZE];
-
 
 // ------------------ TESTS ------------------
 void create_dummy_contacts_for_deleting_non_close_contacts(){
@@ -136,16 +120,16 @@ void test_converting_to_close_contacts(){
 
 
 int main (int argc, char **argv){
-    // test_deleting_non_close_contacts();
-    // test_deleting_close_contacts();
-    // test_converting_to_close_contacts();
-    // return -1;
+    test_deleting_non_close_contacts();
+    test_deleting_close_contacts();
+    test_converting_to_close_contacts();
+    return -1;
 
     init_contacts(contacts);
     struct timeval current_search_start, current_covid_start;
     current_search_start = tic();
     current_covid_start = tic();
-    FILE *fh = fopen ("data/scans.bin", "a+b");
+    FILE *fh = fopen ("../data/scans.bin", "a+b");
 
     int c = 0;
     // while(1){

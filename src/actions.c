@@ -1,83 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "covidTrace.h"
 
-#define SIZE 121
-#define SCAN_SUCCESS_PROBABILITY 50
-#define DELETE_CONTACT_THRESH 1200
-#define DELETE_CLOSE_THRESH 14*24*60 
-#define LOWER_CLOSE_LIMIT 240
-#define UPPER_CLOSE_LIMIT 1200
 
-int get_seconds_of_tod(){
-    struct timeval now;
-    gettimeofday(&now, NULL);
-    return now.tv_sec;
-}
-
-int get_useconds_of_tod(){
-    struct timeval now;
-    gettimeofday(&now, NULL);
-    return now.tv_usec;
-}
-
-typedef struct contact_details{
-    int address;
-    int time_found;
-    bool is_close;
-} contact_details;
-
-// ------------------ CONTACTS ARRAY ------------------
-void init_contacts(contact_details* contacts){
-    for(int i=0;i<SIZE;i++){
-        contact_details cd;
-        cd.address = -1;
-        contacts[i] = cd;
-    }
-}
-
-void insert_contact(contact_details* contacts, contact_details contact){
-    int contact_index = 0;
-
-    while(contacts[contact_index].address != -1 && contact_index < SIZE){
-        ++contact_index;
-    }
-    if(contact_index == SIZE){
-        printf("[ERROR] Contacts array is full\n");  // hope this does not happen
-    }
-    else{
-        contacts[contact_index] = contact;
-    }
-}
-
-void print_contacts(contact_details* contacts){
-    int i=0;
-    printf("Contacts: ");
-    while(i < SIZE){
-        if (contacts[i].address != -1){
-            printf("(%d, %d, %d), ", contacts[i].address, contacts[i].time_found, contacts[i].is_close);
-        }
-        ++i;
-    }
-    printf("\n");
-}
-
-int search_contact_by_address(contact_details* contacts, int address){
-    int i=0;
-    while(i < SIZE){
-        if (contacts[i].address == address){
-            return i;
-        }
-        i++;
-    }
-    return -1;
-}
-
-void delete_contact_in_index(contact_details* contacts, int index){
-    contact_details deleted_contact;
-    deleted_contact.address = -1;
-    contacts[index] = deleted_contact;
-}
-
-// ------------------ ACTIONS ------------------
 int scan_bt(){
     // probability of successful scan
     int upper = 100, lower = 0;
