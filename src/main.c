@@ -120,10 +120,10 @@ void test_converting_to_close_contacts(){
 
 
 int main (int argc, char **argv){
-    test_deleting_non_close_contacts();
-    test_deleting_close_contacts();
-    test_converting_to_close_contacts();
-    return -1;
+    // test_deleting_non_close_contacts();
+    // test_deleting_close_contacts();
+    // test_converting_to_close_contacts();
+    // return -1;
 
     init_contacts(contacts);
     struct timeval current_search_start, current_covid_start;
