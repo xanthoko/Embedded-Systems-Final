@@ -20,6 +20,7 @@ int scan_bt(){
     return mac_address;
 }
 
+
 void create_new_contact(contact_details* contacts, int address){
     int time_found = get_seconds_of_tod();
     contact_details cd;
@@ -30,6 +31,7 @@ void create_new_contact(contact_details* contacts, int address){
 
     insert_contact(contacts, cd);
 }
+
 
 void delete_non_close_contacts(contact_details* contacts){
     for (int i=0; i< SIZE; i++){
@@ -42,6 +44,7 @@ void delete_non_close_contacts(contact_details* contacts){
         }
     }
 }
+
 
 void delete_close_contacts(contact_details* contacts){
     for(int i=0;i<SIZE;i++){
@@ -56,6 +59,7 @@ void delete_close_contacts(contact_details* contacts){
     }
 }
 
+
 void convert_to_close_if_eligible(contact_details* contacts, int contact_index){
     contact_details contact = contacts[contact_index];
     int diff_from_time_found = get_seconds_of_tod() - contact.time_found;
@@ -66,9 +70,11 @@ void convert_to_close_if_eligible(contact_details* contacts, int contact_index){
     }
 }
 
+
 bool testCOVID(){
     return false;
 }
+
 
 void uploadContacts(contact_details* contacts){
     for(int i=0; i<SIZE; i++){
@@ -77,6 +83,7 @@ void uploadContacts(contact_details* contacts){
         }
     }
 }
+
 
 void log_scan_time(FILE* fh){
     int secs = get_seconds_of_tod();

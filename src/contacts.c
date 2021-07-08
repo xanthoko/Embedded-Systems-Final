@@ -9,6 +9,7 @@ void init_contacts(contact_details* contacts){
     }
 }
 
+
 void insert_contact(contact_details* contacts, contact_details contact){
     int contact_index = 0;
 
@@ -23,6 +24,7 @@ void insert_contact(contact_details* contacts, contact_details contact){
     }
 }
 
+
 void print_contacts(contact_details* contacts){
     int i=0;
     printf("Contacts: ");
@@ -35,6 +37,7 @@ void print_contacts(contact_details* contacts){
     printf("\n");
 }
 
+
 int search_contact_by_address(contact_details* contacts, int address){
     int i=0;
     while(i < SIZE){
@@ -45,6 +48,7 @@ int search_contact_by_address(contact_details* contacts, int address){
     }
     return -1;
 }
+
 
 void delete_contact_in_index(contact_details* contacts, int index){
     contact_details deleted_contact;

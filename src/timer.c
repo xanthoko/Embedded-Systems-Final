@@ -7,6 +7,7 @@ struct timeval tic(){
     return tv;
 }
 
+
 double toc(struct timeval begin){
     struct timeval end;
     gettimeofday(&end, NULL);
@@ -16,11 +17,13 @@ double toc(struct timeval begin){
     return (stime);
 }
 
+
 int get_seconds_of_tod(){
     struct timeval now;
     gettimeofday(&now, NULL);
     return now.tv_sec;
 }
+
 
 int get_useconds_of_tod(){
     struct timeval now;
