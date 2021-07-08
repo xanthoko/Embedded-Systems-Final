@@ -4,7 +4,7 @@
 void init_contacts(contact_details* contacts){
     for(int i=0;i<SIZE;i++){
         contact_details cd;
-        cd.address = -1;
+        cd.address.x = -1;
         contacts[i] = cd;
     }
 }
@@ -13,7 +13,7 @@ void init_contacts(contact_details* contacts){
 void insert_contact(contact_details* contacts, contact_details contact){
     int contact_index = 0;
 
-    while(contacts[contact_index].address != -1 && contact_index < SIZE){
+    while(contacts[contact_index].address.x != -1 && contact_index < SIZE){
         ++contact_index;
     }
     if(contact_index == SIZE){
@@ -29,8 +29,8 @@ void print_contacts(contact_details* contacts){
     int i=0;
     printf("Contacts: ");
     while(i < SIZE){
-        if (contacts[i].address != -1){
-            printf("(%d, %d, %d), ", contacts[i].address, contacts[i].time_found, contacts[i].is_close);
+        if (contacts[i].address.x != -1){
+            printf("(%llu, %d, %d), ", contacts[i].address.x, contacts[i].time_found, contacts[i].is_close);
         }
         ++i;
     }
@@ -38,10 +38,10 @@ void print_contacts(contact_details* contacts){
 }
 
 
-int search_contact_by_address(contact_details* contacts, int address){
+int search_contact_by_address(contact_details* contacts, mac_address address){
     int i=0;
     while(i < SIZE){
-        if (contacts[i].address == address){
+        if (contacts[i].address.x == address.x){
             return i;
         }
         i++;
@@ -52,6 +52,6 @@ int search_contact_by_address(contact_details* contacts, int address){
 
 void delete_contact_in_index(contact_details* contacts, int index){
     contact_details deleted_contact;
-    deleted_contact.address = -1;
+    deleted_contact.address.x = -1;
     contacts[index] = deleted_contact;
 }

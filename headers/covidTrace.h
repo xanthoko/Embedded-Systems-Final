@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -20,8 +21,12 @@ int get_seconds_of_tod(void);
 int get_useconds_of_tod(void);
 
 // ------------------ CONTACTS ------------------
+typedef struct int48 {
+    int64_t x:48;
+} __attribute__((packed)) mac_address;
+
 typedef struct contact_details{
-    int address;
+    mac_address address;
     int time_found;
     bool is_close;
 } contact_details;
@@ -29,12 +34,12 @@ typedef struct contact_details{
 void init_contacts(contact_details* contacts);
 void insert_contact(contact_details* contacts, contact_details contact);
 void print_contacts(contact_details* contacts);
-int search_contact_by_address(contact_details* contacts, int address);
+int search_contact_by_address(contact_details* contacts, mac_address address);
 void delete_contact_in_index(contact_details* contacts, int index);
 
 // ------------------ ACTIONS ------------------
-int scan_bt(void);
-void create_new_contact(contact_details* contacts, int address);
+mac_address scan_bt(void);
+void create_new_contact(contact_details* contacts, mac_address address);
 void delete_non_close_contacts(contact_details* contacts);
 void delete_close_contacts(contact_details* contacts);
 void convert_to_close_if_eligible(contact_details* contacts, int contact_index);

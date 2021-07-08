@@ -4,24 +4,29 @@
 #include "covidTrace.h"
 
 
-int scan_bt(){
+mac_address scan_bt(){
+    mac_address ma;
+
     // probability of successful scan
     int upper = 100, lower = 0;
     int random_number = (rand() % (upper - lower + 1)) + lower;
     if (random_number > SCAN_SUCCESS_PROBABILITY){
         printf("Scan failed\n");
-        return 0;
+        ma.x = -1;
+        return ma;
     }
 
     upper = 1000;
     lower = 1;
-    int mac_address = (rand() % (upper - lower + 1)) + lower;
-    printf("Scan found: %d\n", mac_address);
-    return mac_address;
+    int random_address = (rand() % (upper - lower + 1)) + lower;
+    printf("Scan found: %d\n", random_address);
+
+    ma.x = random_address;
+    return ma;
 }
 
 
-void create_new_contact(contact_details* contacts, int address){
+void create_new_contact(contact_details* contacts, mac_address address){
     int time_found = get_seconds_of_tod();
     contact_details cd;
 
@@ -35,7 +40,7 @@ void create_new_contact(contact_details* contacts, int address){
 
 void delete_non_close_contacts(contact_details* contacts){
     for (int i=0; i< SIZE; i++){
-        if(contacts[i].address != -1){
+        if(contacts[i].address.x != -1){
             contact_details cd = contacts[i];
             int diff_from_time_found = get_seconds_of_tod() - cd.time_found;
             if (!cd.is_close && diff_from_time_found > DELETE_CONTACT_THRESH){
@@ -48,7 +53,7 @@ void delete_non_close_contacts(contact_details* contacts){
 
 void delete_close_contacts(contact_details* contacts){
     for(int i=0;i<SIZE;i++){
-        if (contacts[i].address != -1){
+        if (contacts[i].address.x != -1){
             contact_details cd = contacts[i];
             int current_secs = get_seconds_of_tod();
             int diff_from_time_found = current_secs - cd.time_found;
@@ -78,7 +83,7 @@ bool testCOVID(){
 
 void uploadContacts(contact_details* contacts){
     for(int i=0; i<SIZE; i++){
-        if(contacts[i].address != -1 && contacts[i].is_close){
+        if(contacts[i].address.x != -1 && contacts[i].is_close){
             // upload to server
         }
     }

@@ -26,9 +26,9 @@ int main (int argc, char **argv){
 
             // --- ACTION: Scan for new BT contacts
             log_scan_time(fh);
-            int scan_result = scan_bt();
+            mac_address scan_result = scan_bt();
 
-            if (scan_result != 0){
+            if (scan_result.x != -1){
                 int search_index = search_contact_by_address(contacts, scan_result);
 
                 if (search_index == -1){

@@ -5,18 +5,22 @@ contact_details contacts[SIZE];
 
 void create_dummy_contacts(){
     contact_details cd1, cd2, cd3;
+    mac_address ma1, ma2, ma3;
     // case 1, non close contact, inside time range, must convert
-    cd1.address = 1;
+    ma1.x = 1;
+    cd1.address = ma1;
     cd1.is_close = false;
     cd1.time_found = get_seconds_of_tod() - LOWER_CLOSE_LIMIT - 10;
     insert_contact(contacts, cd1);
     // case 2, non close contact, inside time range, must convert
-    cd2.address = 2;
+    ma2.x = 2;
+    cd2.address = ma2;
     cd2.is_close = false;
     cd2.time_found = get_seconds_of_tod() - UPPER_CLOSE_LIMIT + 10;
     insert_contact(contacts, cd2);
     // case 3, non close contact, outside time range, must NOT convert
-    cd3.address = 3;
+    ma3.x = 3;
+    cd3.address = ma3;
     cd3.is_close = false;
     cd3.time_found = get_seconds_of_tod();
     insert_contact(contacts, cd3);
@@ -29,7 +33,7 @@ int main (int argc, char **argv){
     create_dummy_contacts();
     
     for (int i=0;i<SIZE;i++){
-        if (contacts[i].address != -1){
+        if (contacts[i].address.x != -1){
             convert_to_close_if_eligible(contacts, i);
         }
     }
