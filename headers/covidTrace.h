@@ -2,15 +2,17 @@
 #define COVIDTRACE_H
 
 #include <stdio.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
 #define SIZE 121
-#define SCAN_SUCCESS_PROBABILITY 50
-#define DELETE_CONTACT_THRESH 1200
-#define DELETE_CLOSE_THRESH 14*24*60 
+#define SEARCH_INTERVAL 2
 #define LOWER_CLOSE_LIMIT 240
 #define UPPER_CLOSE_LIMIT 1200
+#define DELETE_CONTACT_THRESH 1200
+#define SCAN_SUCCESS_PROBABILITY 50
+#define DELETE_CLOSE_THRESH 14*24*60 
 
 struct timeval tic(void);
 double toc(struct timeval begin);
