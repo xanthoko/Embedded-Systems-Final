@@ -1,9 +1,5 @@
 #include "covidTrace.h"
 
-#define SEARCH_INTERVAL 2
-#define COVID_TEST_INTERVAL 14400
-
-
 contact_details contacts[SIZE];
 
 
@@ -13,7 +9,7 @@ int main (int argc, char **argv){
     struct timeval current_search_start, current_covid_start;
     current_search_start = tic();
     current_covid_start = tic();
-    FILE *fh = fopen ("../data/scans.bin", "a+b");
+    FILE *fh = fopen ("../data/scans.bin", "wb");
 
     int c = 0;
     // while(1){

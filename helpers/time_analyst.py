@@ -1,11 +1,11 @@
 from typing import List
 
-SCAN_INTERVAL = 2
+SCAN_INTERVAL = 1
 
 
 def _read_scan_file():
     """Reads the data"""
-    scans_file_path = 'data/scans.bin'
+    scans_file_path = '../data/scans.bin'
 
     reads = []
     with open(scans_file_path, 'rb') as f:
@@ -37,3 +37,6 @@ def get_diffs_of_scan_times():
         rst - bst for rst, bst in zip(relative_scan_times, baseline_scan_times)
     ]
     print(diffs)
+
+
+get_diffs_of_scan_times()
