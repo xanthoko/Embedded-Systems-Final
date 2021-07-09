@@ -30,3 +30,13 @@ int get_useconds_of_tod(){
     gettimeofday(&now, NULL);
     return now.tv_usec;
 }
+
+
+char *get_datetime(){
+    char *ret = malloc(30 * sizeof(char));
+    struct tm tim;
+    time_t now = time(NULL);
+    tim = *(localtime(&now));
+    strftime(ret,30,"%b %d, %Y; %H:%M:%S\n",&tim);
+    return ret;
+}

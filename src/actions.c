@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include <sys/time.h>
 #include "covidTrace.h"
 
 
@@ -82,11 +80,27 @@ bool testCOVID(){
 
 
 void uploadContacts(contact_details* contacts){
+    FILE *fh = fopen ("../data/close_contacts.txt", "w");
+
+    char *current_datetime = malloc(30 * sizeof(char));
+    current_datetime = get_datetime();
+
+    fprintf(fh, "Positive Covid Test at %s\n", current_datetime);
+
     for(int i=0; i<SIZE; i++){
         if(contacts[i].address.x != -1 && contacts[i].is_close){
-            // upload to server
+            // upload to server (write to file)
+            int current_seconds = get_seconds_of_tod();
+            int seconds_till_time_found = current_seconds - contacts[i].time_found;
+            int h, m, s;
+            h = (seconds_till_time_found / 3600);
+            m = (seconds_till_time_found - (3600 * h)) / 60;
+            s = (seconds_till_time_found - (3600 * h) - (m * 60));
+            fprintf(fh, "Contact address: %llu, Time since last contact: %d:%d:%d\n", contacts[i].address.x, h, m ,s);
         }
     }
+
+    fclose(fh);
 }
 
 

@@ -9,6 +9,7 @@ contact_details contacts[SIZE];
 
 int main (int argc, char **argv){
     init_contacts(contacts);
+
     struct timeval current_search_start, current_covid_start;
     current_search_start = tic();
     current_covid_start = tic();
@@ -53,5 +54,6 @@ int main (int argc, char **argv){
             uploadContacts(contacts);
         }
     }
-    fclose(fh);
+
+    fclose(fh);    
 }

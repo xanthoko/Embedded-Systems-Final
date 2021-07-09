@@ -15,10 +15,13 @@
 #define SCAN_SUCCESS_PROBABILITY 50
 #define DELETE_CLOSE_THRESH 14*24*60 
 
+
+// ------------------ TIMER ------------------
 struct timeval tic(void);
 double toc(struct timeval begin);
 int get_seconds_of_tod(void);
 int get_useconds_of_tod(void);
+char *get_datetime(void);
 
 // ------------------ CONTACTS ------------------
 typedef struct int48 {
