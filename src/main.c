@@ -13,7 +13,7 @@ int main (int argc, char **argv){
 
     int c = 0;
     // while(1){
-    while(c < 4){
+    while(c < 50){
         float elapsed_from_last_search = toc(current_search_start);
         float elapsed_from_last_covid_test = toc(current_covid_start);
 
@@ -42,6 +42,7 @@ int main (int argc, char **argv){
             // --- ACTION: Delete close contact after 14 days
             delete_close_contacts(contacts);
 
+            printf("c: %d\n", c);
             print_contacts(contacts);
         }
 

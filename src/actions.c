@@ -1,25 +1,25 @@
 #include <sys/time.h>
 #include "covidTrace.h"
 
+int current_scan_index = 0;
+int current_array_index = 0;
+int scan_indexes[] = {0, 1, 27};
+int addresses[] = {1,2,1};
+
+int current_covid_index = 0;
 
 mac_address scan_bt(){
     mac_address ma;
 
-    // probability of successful scan
-    int upper = 100, lower = 0;
-    int random_number = (rand() % (upper - lower + 1)) + lower;
-    if (random_number > SCAN_SUCCESS_PROBABILITY){
-        printf("Scan failed\n");
-        ma.x = -1;
-        return ma;
+    int upcoming_scan_index = scan_indexes[current_array_index];
+    if (current_scan_index == upcoming_scan_index){
+        ma.x = addresses[current_array_index];
+        current_array_index++;
     }
-
-    upper = 1000;
-    lower = 1;
-    int random_address = (rand() % (upper - lower + 1)) + lower;
-    printf("Scan found: %d\n", random_address);
-
-    ma.x = random_address;
+    else{
+        ma.x = -1;
+    }
+    current_scan_index++;
     return ma;
 }
 
@@ -75,7 +75,8 @@ void convert_to_close_if_eligible(contact_details* contacts, int contact_index){
 
 
 bool testCOVID(){
-    return false;
+    current_covid_index++;
+    return true;
 }
 
 
