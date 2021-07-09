@@ -30,7 +30,7 @@ void print_contacts(contact_details* contacts){
     printf("Contacts: ");
     while(i < SIZE){
         if (contacts[i].address.x != -1){
-            printf("(%llu, %d, %d), ", contacts[i].address.x, contacts[i].time_found, contacts[i].is_close);
+            printf("(%llu, %f, %d), ", contacts[i].address.x, contacts[i].time_found, contacts[i].is_close);
         }
         ++i;
     }

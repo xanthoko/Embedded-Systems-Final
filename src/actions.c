@@ -1,4 +1,3 @@
-#include <sys/time.h>
 #include "covidTrace.h"
 
 int current_scan_index = 0;
@@ -15,6 +14,7 @@ mac_address scan_bt(){
     if (current_scan_index == upcoming_scan_index){
         ma.x = addresses[current_array_index];
         current_array_index++;
+        printf("Scan found. address: %lld scan_index: %d\n", ma.x, current_scan_index);
     }
     else{
         ma.x = -1;
@@ -25,11 +25,10 @@ mac_address scan_bt(){
 
 
 void create_new_contact(contact_details* contacts, mac_address address){
-    int time_found = get_seconds_of_tod();
     contact_details cd;
 
     cd.address = address;
-    cd.time_found = time_found;
+    cd.time_found = get_tod_in_mill();
     cd.is_close = false;
 
     insert_contact(contacts, cd);
@@ -40,7 +39,8 @@ void delete_non_close_contacts(contact_details* contacts){
     for (int i=0; i< SIZE; i++){
         if(contacts[i].address.x != -1){
             contact_details cd = contacts[i];
-            int diff_from_time_found = get_seconds_of_tod() - cd.time_found;
+            float diff_from_time_found = (get_tod_in_mill() - cd.time_found) / 1000;
+
             if (!cd.is_close && diff_from_time_found > DELETE_CONTACT_THRESH){
                 delete_contact_in_index(contacts, i);
             }
@@ -53,8 +53,8 @@ void delete_close_contacts(contact_details* contacts){
     for(int i=0;i<SIZE;i++){
         if (contacts[i].address.x != -1){
             contact_details cd = contacts[i];
-            int current_secs = get_seconds_of_tod();
-            int diff_from_time_found = current_secs - cd.time_found;
+            float diff_from_time_found = (get_tod_in_mill() - cd.time_found) / 1000;
+
             if (cd.is_close && diff_from_time_found > DELETE_CLOSE_THRESH){
                 delete_contact_in_index(contacts, i);
             }
@@ -65,7 +65,7 @@ void delete_close_contacts(contact_details* contacts){
 
 void convert_to_close_if_eligible(contact_details* contacts, int contact_index){
     contact_details contact = contacts[contact_index];
-    int diff_from_time_found = get_seconds_of_tod() - contact.time_found;
+    float diff_from_time_found = (get_tod_in_mill() - contact.time_found) / 1000;
 
     if (diff_from_time_found > LOWER_CLOSE_LIMIT && diff_from_time_found < UPPER_CLOSE_LIMIT){
         contact.is_close = true;
@@ -91,8 +91,8 @@ void uploadContacts(contact_details* contacts){
     for(int i=0; i<SIZE; i++){
         if(contacts[i].address.x != -1 && contacts[i].is_close){
             // upload to server (write to file)
-            int current_seconds = get_seconds_of_tod();
-            int seconds_till_time_found = current_seconds - contacts[i].time_found;
+            float ms_till_time_found = get_tod_in_mill() - contacts[i].time_found;
+            int seconds_till_time_found = ms_till_time_found / 1000;
             int h, m, s;
             h = (seconds_till_time_found / 3600);
             m = (seconds_till_time_found - (3600 * h)) / 60;
@@ -106,8 +106,6 @@ void uploadContacts(contact_details* contacts){
 
 
 void log_scan_time(FILE* fh){
-    int secs = get_seconds_of_tod();
-    int usecs = get_useconds_of_tod();
-    fwrite(&secs, sizeof(secs), 1, fh);
-    fwrite(&usecs, sizeof(usecs), 1, fh);
+    double time_in_mills = get_tod_in_mill();
+    fwrite(&time_in_mills, sizeof(time_in_mills), 1, fh);
 }

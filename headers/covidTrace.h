@@ -1,6 +1,7 @@
 #ifndef COVIDTRACE_H
 #define COVIDTRACE_H
 
+#include <sys/time.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdint.h>
@@ -8,7 +9,7 @@
 #include <stdbool.h>
 
 #define SIZE 121
-#define SPEED_FACTOR 10
+#define SPEED_FACTOR 100.0
 #define SEARCH_INTERVAL 10 / SPEED_FACTOR
 #define LOWER_CLOSE_LIMIT 4 * 60 / SPEED_FACTOR
 #define UPPER_CLOSE_LIMIT 20 * 60 / SPEED_FACTOR
@@ -21,8 +22,7 @@
 // ------------------ TIMER ------------------
 struct timeval tic(void);
 double toc(struct timeval begin);
-int get_seconds_of_tod(void);
-int get_useconds_of_tod(void);
+double get_tod_in_mill(void);
 char *get_datetime(void);
 
 // ------------------ CONTACTS ------------------
@@ -32,7 +32,7 @@ typedef struct int48 {
 
 typedef struct contact_details{
     mac_address address;
-    int time_found;
+    double time_found;
     bool is_close;
 } contact_details;
 

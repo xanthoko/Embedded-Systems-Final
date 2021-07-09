@@ -1,4 +1,3 @@
-#include <sys/time.h>
 #include "covidTrace.h"
 
 struct timeval tic(){
@@ -18,17 +17,10 @@ double toc(struct timeval begin){
 }
 
 
-int get_seconds_of_tod(){
-    struct timeval now;
-    gettimeofday(&now, NULL);
-    return now.tv_sec;
-}
-
-
-int get_useconds_of_tod(){
-    struct timeval now;
-    gettimeofday(&now, NULL);
-    return now.tv_usec;
+double get_tod_in_mill(){
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000 ;
 }
 
 

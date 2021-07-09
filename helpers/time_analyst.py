@@ -9,7 +9,7 @@ def _read_scan_file():
 
     reads = []
     with open(scans_file_path, 'rb') as f:
-        while (byte := f.read(4)):  # integers -> 4 bytes
+        while (byte := f.read(8)):  # double -> 8 bytes
             reads.append(int.from_bytes(byte, "little"))
     return reads
 
@@ -39,4 +39,4 @@ def get_diffs_of_scan_times():
     print(diffs)
 
 
-get_diffs_of_scan_times()
+print(_read_scan_file())
