@@ -1,13 +1,14 @@
 #include "covidTrace.h"
 
+// close contacts: 1, 32, 111,/ 309, 2/, 8397
 int current_scan_index = 0;
 int current_array_index = 0;
-int scan_indexes[] = {0, 1, 27, 190, 250};
-int addresses[] = {1, 2, 1, 50, 50};
+int scan_indexes[] = {500, 600, 610, 4000, 5000, 10000, 10050, 12000, 12002, 30123, 54000, 54109, 100000, 100992, 110399, 110450, 169722, 170000, 170100, 200000, 230999, 240000, 240110};
+int addresses[] = {    1,   2,   1,   50,   12,   32,    32,    30,    30,    220,   111,   111,   1032,   1033,   309,    309,    1,       2,       2,    7096,    503,   8397,   8397};
 
 int current_covid_index = 0;
 int current_carray_index = 0;
-int test_indexes[] = {0, 1};
+int test_indexes[] = {37, 124};
 
 
 mac_address scan_bt(){
@@ -83,6 +84,7 @@ bool testCOVID(){
         current_carray_index++;
         ret = true;
     }
+    printf("Covid test: %d. Result: %d\n", current_covid_index, ret);
     current_covid_index++;
     return ret;
 }
@@ -107,6 +109,7 @@ void uploadContacts(contact_details* contacts){
             fprintf(fh, "Contact address: %llu, Time since last contact: %d:%d:%d\n", contacts[i].address.x, h, m ,s);
         }
     }
+    fprintf(fh,"----------------------------------------\n\n");
 
     fclose(fh);
 }
@@ -115,4 +118,10 @@ void uploadContacts(contact_details* contacts){
 void log_scan_time(FILE* fh){
     double time_in_mills = get_tod_in_mill();
     fwrite(&time_in_mills, sizeof(time_in_mills), 1, fh);
+}
+
+
+void clear_close_contacts_file(){
+    FILE *fh_temp = fopen ("../data/close_contacts.txt", "w");
+    fclose(fh_temp);
 }

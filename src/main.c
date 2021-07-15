@@ -4,12 +4,16 @@ contact_details contacts[SIZE];
 
 
 int main (int argc, char **argv){
+    printf("Running for %f seconds\n", TOTAL_DURATION);
+
     init_contacts(contacts);
+    clear_close_contacts_file();
 
     struct timeval current_search_start, current_covid_start, program_start;
     current_search_start = tic();
     current_covid_start = tic();
     program_start = tic();
+    
     FILE *fh = fopen ("../data/scans.bin", "wb");
 
     float total_elapsed = toc(program_start);
@@ -43,10 +47,12 @@ int main (int argc, char **argv){
 
         }
 
-        if (elapsed_from_last_covid_test > COVID_TEST_INTERVAL && testCOVID()){
-            printf("Total time elapsed: %f\n", total_elapsed);
+        if (elapsed_from_last_covid_test > COVID_TEST_INTERVAL){
             current_covid_start = tic();
-            uploadContacts(contacts);
+            if (testCOVID()){
+                printf("Total time elapsed: %f\n", total_elapsed);
+                uploadContacts(contacts);
+            }
         }
 
         total_elapsed = toc(program_start);
