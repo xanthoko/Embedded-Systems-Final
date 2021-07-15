@@ -1,0 +1,13 @@
+Positive Covid Test at Jul 15, 2021; 15:34:49
+
+Contact address: 1, Time since last contact: 0:12:54
+Contact address: 32, Time since last contact: 0:10:38
+Contact address: 111, Time since last contact: 0:0:10
+----------------------------------------
+
+Positive Covid Test at Jul 15, 2021; 16:04:39
+
+Contact address: 2, Time since last contact: 0:2:22
+Contact address: 309, Time since last contact: 0:16:34
+----------------------------------------
+
