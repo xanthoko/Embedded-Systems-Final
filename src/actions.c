@@ -2,8 +2,8 @@
 
 int current_scan_index = 0;
 int current_array_index = 0;
-int scan_indexes[] = {0, 1, 27};
-int addresses[] = {1,2,1};
+int scan_indexes[] = {0, 1, 27, 2000, 2100};
+int addresses[] = {1, 2, 1, 50, 50};
 
 int current_covid_index = 0;
 
@@ -76,7 +76,10 @@ void convert_to_close_if_eligible(contact_details* contacts, int contact_index){
 
 bool testCOVID(){
     current_covid_index++;
-    return true;
+    if (current_covid_index == 1){
+        return true;
+    }
+    return false;
 }
 
 

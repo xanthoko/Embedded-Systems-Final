@@ -1,6 +1,6 @@
 import struct
 
-SCAN_MS_INTERVAL = 0.1 * 1000
+SCAN_INTERVAL = 0.1
 
 
 def _read_scan_file():
@@ -9,8 +9,10 @@ def _read_scan_file():
 
     reads = []
     with open(scans_file_path, 'rb') as f:
-        while (byte := f.read(8)):  # double -> 8 bytes
+        byte = f.read(8) # double -> 8 bytes
+        while byte != b"":
             reads.append(struct.unpack('d', byte)[0])
+            byte = f.read(8) # double -> 8 bytes
     return reads
 
 
@@ -22,8 +24,8 @@ def get_diffs_of_scan_times():
 
     base_scan_time = scan_times[0]
 
-    relative_scan_times = [x - base_scan_time for x in scan_times]
-    baseline_scan_times = [x * SCAN_MS_INTERVAL for x in range(len(scan_times))]
+    relative_scan_times = [(x - base_scan_time) / 1000 for x in scan_times]
+    baseline_scan_times = [x * SCAN_INTERVAL for x in range(len(scan_times))]
     diffs = [
         rst - bst for rst, bst in zip(relative_scan_times, baseline_scan_times)
     ]
@@ -31,3 +33,4 @@ def get_diffs_of_scan_times():
 
 
 print(get_diffs_of_scan_times())
+

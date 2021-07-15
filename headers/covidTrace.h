@@ -2,6 +2,7 @@
 #define COVIDTRACE_H
 
 #include <sys/time.h>
+#include <time.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdint.h>
@@ -10,13 +11,14 @@
 
 #define SIZE 121
 #define SPEED_FACTOR 100.0
+// #define TOTAL_DURATION 30 * 24 * 60 * 60 / SPEED_FACTOR
+#define TOTAL_DURATION 300
 #define SEARCH_INTERVAL 10 / SPEED_FACTOR
 #define LOWER_CLOSE_LIMIT 4 * 60 / SPEED_FACTOR
 #define UPPER_CLOSE_LIMIT 20 * 60 / SPEED_FACTOR
-// #define COVID_TEST_INTERVAL 4 * 60 * 60 / SPEED_FACTOR
-#define COVID_TEST_INTERVAL 300 / SPEED_FACTOR
+#define COVID_TEST_INTERVAL 4 * 60 * 60 / SPEED_FACTOR
 #define DELETE_CONTACT_THRESH 20 * 60 / SPEED_FACTOR
-#define DELETE_CLOSE_THRESH 14 * 24 * 60 / SPEED_FACTOR
+#define DELETE_CLOSE_THRESH 14 * 24 * 60 * 60 / SPEED_FACTOR
 
 
 // ------------------ TIMER ------------------
