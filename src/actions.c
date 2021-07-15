@@ -2,10 +2,13 @@
 
 int current_scan_index = 0;
 int current_array_index = 0;
-int scan_indexes[] = {0, 1, 27, 2000, 2100};
+int scan_indexes[] = {0, 1, 27, 190, 250};
 int addresses[] = {1, 2, 1, 50, 50};
 
 int current_covid_index = 0;
+int current_carray_index = 0;
+int test_indexes[] = {0, 1};
+
 
 mac_address scan_bt(){
     mac_address ma;
@@ -75,20 +78,21 @@ void convert_to_close_if_eligible(contact_details* contacts, int contact_index){
 
 
 bool testCOVID(){
-    current_covid_index++;
-    if (current_covid_index == 1){
-        return true;
+    bool ret = false;
+    if (current_covid_index == test_indexes[current_carray_index]){
+        current_carray_index++;
+        ret = true;
     }
-    return false;
+    current_covid_index++;
+    return ret;
 }
 
 
 void uploadContacts(contact_details* contacts){
-    FILE *fh = fopen ("../data/close_contacts.txt", "w");
-
     char *current_datetime = malloc(30 * sizeof(char));
     current_datetime = get_datetime();
 
+    FILE *fh = fopen ("../data/close_contacts.txt", "a");
     fprintf(fh, "Positive Covid Test at %s\n", current_datetime);
 
     for(int i=0; i<SIZE; i++){

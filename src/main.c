@@ -41,7 +41,6 @@ int main (int argc, char **argv){
             // --- ACTION: Delete close contact after 14 days
             delete_close_contacts(contacts);
 
-            // print_contacts(contacts);
         }
 
         if (elapsed_from_last_covid_test > COVID_TEST_INTERVAL && testCOVID()){

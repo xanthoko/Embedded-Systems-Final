@@ -9,10 +9,10 @@ def _read_scan_file():
 
     reads = []
     with open(scans_file_path, 'rb') as f:
-        byte = f.read(8) # double -> 8 bytes
+        byte = f.read(8)  # double -> 8 bytes
         while byte != b"":
             reads.append(struct.unpack('d', byte)[0])
-            byte = f.read(8) # double -> 8 bytes
+            byte = f.read(8)  # double -> 8 bytes
     return reads
 
 
@@ -33,4 +33,3 @@ def get_diffs_of_scan_times():
 
 
 print(get_diffs_of_scan_times())
-
