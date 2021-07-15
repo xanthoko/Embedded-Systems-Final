@@ -10,7 +10,7 @@
 #include <stdbool.h>
 
 #define SIZE 121
-#define SPEED_FACTOR 700.0
+#define SPEED_FACTOR 100.0
 #define TOTAL_DURATION 30 * 24 * 60 * 60 / SPEED_FACTOR
 #define SEARCH_INTERVAL 10 / SPEED_FACTOR
 #define LOWER_CLOSE_LIMIT 4 * 60 / SPEED_FACTOR
